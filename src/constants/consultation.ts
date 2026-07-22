@@ -1,8 +1,6 @@
-import type {ConsultationMethod, ContactMethod} from '@/types/consultation';
+import type {ContactMethod} from '@/types/consultation';
 
 export const STORE_NOTIFICATION_EMAIL = 'kyuden1101@gmail.com';
-
-export const STORES = ['ミント新宿店', 'ミント池袋店', 'ミント横浜店'];
 
 export const CATEGORIES = [
   {code: 'earn_more', label: 'もっと稼ぎたい'},
@@ -20,14 +18,31 @@ export const CATEGORIES = [
 ];
 
 export const CONTACT_METHOD_LABELS: Record<ContactMethod, string> = {
+  line: 'LINE',
   email: 'メール',
   phone: '電話',
-  line: 'LINE',
+  any: 'どれでもよい',
 };
 
-export const METHOD_LABELS: Record<ConsultationMethod, string> = {
-  in_person: '対面',
-  phone: '電話',
-  line: 'LINE',
-  online: 'オンライン',
+export const TIME_SLOT_CONFIG = {
+  start: '10:00',
+  end: '02:00',
+  intervalMinutes: 30,
 };
+
+function toMinutes(value: string) {
+  const [hours, minutes] = value.split(':').map(Number);
+  return hours * 60 + minutes;
+}
+
+export function generateTimeSlots() {
+  const start = toMinutes(TIME_SLOT_CONFIG.start);
+  let end = toMinutes(TIME_SLOT_CONFIG.end);
+  if (end <= start) end += 24 * 60;
+  const slots: string[] = [];
+  for (let minutes = start; minutes <= end; minutes += TIME_SLOT_CONFIG.intervalMinutes) {
+    const normalized = minutes % (24 * 60);
+    slots.push(`${String(Math.floor(normalized / 60)).padStart(2, '0')}:${String(normalized % 60).padStart(2, '0')}`);
+  }
+  return slots;
+}

@@ -43,16 +43,12 @@
 
   var booking = {
     stageName: '',
-    storeName: '',
     email: '',
-    phone: '',
     contactMethod: '',
-    contactNote: '',
     date: '',
     time: '',
     secondChoiceAt: '',
     thirdChoiceAt: '',
-    method: '',
     staff: 'おまかせ',
     categories: [],
     note: '',
@@ -157,16 +153,12 @@
 
   function readStepOne() {
     booking.stageName = $('#stage-name-input').value.trim();
-    booking.storeName = $('#store-input').value;
     booking.email = $('#email-input').value.trim();
-    booking.phone = $('#phone-input').value.trim();
     booking.contactMethod = $('#contact-method-input').value;
-    booking.contactNote = $('#contact-note-input').value.trim();
     booking.date = $('#date-input').value;
     booking.time = $('#time-input').value;
-    booking.secondChoiceAt = $('#second-choice-input').value;
-    booking.thirdChoiceAt = $('#third-choice-input').value;
-    booking.method = $('#method-input').value;
+    booking.secondChoiceAt = formatDateTimeParts($('#second-date-input').value, $('#second-time-input').value);
+    booking.thirdChoiceAt = formatDateTimeParts($('#third-date-input').value, $('#third-time-input').value);
     booking.staff = $('#staff-input').value;
   }
 
@@ -183,8 +175,8 @@
   function validateStepOne() {
     readStepOne();
     var error = $('#step-one-error');
-    if (!booking.stageName || !booking.storeName || !booking.email || !booking.contactMethod || !booking.date || !booking.time || !booking.method) {
-      error.textContent = '源氏名、所属店舗、メールアドレス、希望連絡方法、第1希望日時、希望相談方法を入力してください。';
+    if (!booking.stageName || !booking.email || !booking.contactMethod || !booking.date || !booking.time) {
+      error.textContent = '源氏名、メールアドレス、希望連絡方法、第1希望日時を入力してください。';
       return false;
     }
     error.textContent = '';
@@ -202,6 +194,11 @@
     return true;
   }
 
+  function formatDateTimeParts(date, time) {
+    if (!date || !time) return '';
+    return date.replace(/-/g, '/') + ' ' + time;
+  }
+
   function formatDateTime() {
     if (!booking.date || !booking.time) {
       return '未選択';
@@ -213,15 +210,11 @@
     var list = $(selector);
     var rows = [
       ['源氏名', booking.stageName],
-      ['店舗', booking.storeName],
       ['メールアドレス', booking.email],
-      ['電話番号', booking.phone || '未入力'],
       ['希望連絡方法', booking.contactMethod],
-      ['希望連絡方法の補足', booking.contactNote || '未入力'],
       ['第1希望日時', formatDateTime()],
       ['第2希望日時', booking.secondChoiceAt || '未入力'],
       ['第3希望日時', booking.thirdChoiceAt || '未入力'],
-      ['相談方法', booking.method],
       ['担当者', booking.staff],
       ['相談カテゴリ', booking.categories.join('、')],
       ['事前相談内容', booking.note || '未入力'],
@@ -251,7 +244,7 @@
     card.innerHTML =
       '<h2>申込受付済み</h2>' +
       '<p><strong>' + formatDateTime() + '</strong></p>' +
-      '<p>源氏名：' + booking.stageName + ' / 店舗：' + booking.storeName + '</p>' + '<p>相談方法：' + booking.method + ' / 担当者：' + booking.staff + '</p>' +
+      '<p>源氏名：' + booking.stageName + '</p>' + '<p>担当者：' + booking.staff + '</p>' +
       '<p>相談カテゴリ：' + booking.categories.join('、') + '</p>' +
       '<p>ステータス：申込受付済み</p>' +
       '<p>受付番号：' + booking.reservationNumber + '</p>' +

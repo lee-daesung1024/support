@@ -1,5 +1,6 @@
 import type {ConsultationApplication, ConsultationApplicationInput} from '@/types/consultation';
-import {CATEGORIES, CONTACT_METHOD_LABELS, METHOD_LABELS, STORE_NOTIFICATION_EMAIL} from '@/constants/consultation';
+import {CATEGORIES, CONTACT_METHOD_LABELS, STORE_NOTIFICATION_EMAIL} from '@/constants/consultation';
+import {formatPreference} from '@/validation/consultation';
 
 const globalStore = globalThis as typeof globalThis & {
   __consultationApplications?: ConsultationApplication[];
@@ -15,25 +16,88 @@ function categoryLabels(codes: string[]) {
   return codes.map((code) => CATEGORIES.find((category) => category.code === code)?.label ?? code);
 }
 
-function formatLines(application: ConsultationApplication) {
+function formatAppliedAt(value: string) {
+  const date = new Date(value);
+  return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日 ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+}
+
+function bulletList(items: string[]) {
+  return items.map((item) => `・${item}`).join('\n');
+}
+
+function storeMailBody(application: ConsultationApplication) {
   return [
-    `受付番号: ${application.receiptNumber}`,
-    `源氏名: ${application.stageName}`,
-    `所属店舗: ${application.storeName}`,
-    `メールアドレス: ${application.email}`,
-    `電話番号: ${application.phone || '未入力'}`,
-    `希望連絡方法: ${CONTACT_METHOD_LABELS[application.preferredContactMethod]}`,
-    `希望連絡方法の補足: ${application.contactNote || '未入力'}`,
-    `第1希望日時: ${application.firstChoiceAt}`,
-    `第2希望日時: ${application.secondChoiceAt || '未入力'}`,
-    `第3希望日時: ${application.thirdChoiceAt || '未入力'}`,
-    `希望相談方法: ${METHOD_LABELS[application.preferredConsultationMethod]}`,
-    `希望担当者: ${application.preferredStaff || '指定なし'}`,
-    `相談カテゴリ: ${categoryLabels(application.categories).join('、')}`,
-    `相談内容: ${application.note || '未入力'}`,
-    `配慮してほしいこと: ${application.specialRequest || '未入力'}`,
-    `申込日時: ${application.appliedAt}`,
-  ];
+    'キャストから相談タイムの申し込みがありました。',
+    '',
+    '■受付番号',
+    application.receiptNumber,
+    '',
+    '■源氏名',
+    application.stageName,
+    '',
+    '■メールアドレス',
+    application.email,
+    '',
+    '■希望連絡方法',
+    CONTACT_METHOD_LABELS[application.preferredContactMethod],
+    '',
+    '■第1希望日時',
+    formatPreference(application.firstChoice),
+    '',
+    '■第2希望日時',
+    formatPreference(application.secondChoice),
+    '',
+    '■第3希望日時',
+    formatPreference(application.thirdChoice),
+    '',
+    '■希望担当者',
+    application.preferredStaff || 'おまかせ',
+    '',
+    '■相談カテゴリ',
+    bulletList(categoryLabels(application.categories)),
+    '',
+    '■相談内容',
+    application.note || '未入力',
+    '',
+    '■配慮してほしいこと',
+    application.specialRequest || '未入力',
+    '',
+    '■申込日時',
+    formatAppliedAt(application.appliedAt),
+  ].join('\n');
+}
+
+function castMailBody(application: ConsultationApplication) {
+  return [
+    '相談タイムのお申し込みを受け付けました。',
+    '',
+    '■源氏名',
+    application.stageName,
+    '',
+    '■受付番号',
+    application.receiptNumber,
+    '',
+    '■第1希望日時',
+    formatPreference(application.firstChoice),
+    '',
+    '■第2希望日時',
+    formatPreference(application.secondChoice),
+    '',
+    '■第3希望日時',
+    formatPreference(application.thirdChoice),
+    '',
+    '■希望担当者',
+    application.preferredStaff || 'おまかせ',
+    '',
+    '■相談カテゴリ',
+    bulletList(categoryLabels(application.categories)),
+    '',
+    '■受付日時',
+    formatAppliedAt(application.appliedAt),
+    '',
+    '現在はまだ日時確定前です。',
+    '担当スタッフからの連絡をもって確定となります。',
+  ].join('\n');
 }
 
 export function assertRateLimit(key: string) {
@@ -54,20 +118,12 @@ export function assertRateLimit(key: string) {
 export async function sendApplicationEmails(application: ConsultationApplication) {
   const from = process.env.MAIL_FROM || 'no-reply@example.invalid';
   const apiKey = process.env.MAIL_API_KEY;
-  const storeBody = formatLines(application).join('\n');
-  const castBody = [
-    `受付番号: ${application.receiptNumber}`,
-    `源氏名: ${application.stageName}`,
-    `希望日時: 第1希望 ${application.firstChoiceAt} / 第2希望 ${application.secondChoiceAt || '未入力'} / 第3希望 ${application.thirdChoiceAt || '未入力'}`,
-    `相談方法: ${METHOD_LABELS[application.preferredConsultationMethod]}`,
-    `相談カテゴリ: ${categoryLabels(application.categories).join('、')}`,
-    '',
-    '現在はまだ予約確定ではありません。担当スタッフからの連絡をもって予約確定となります。',
-  ].join('\n');
+  const storeSubject = `【相談タイム申込】${application.stageName}／${formatPreference(application.firstChoice)}`;
+  const castSubject = '【相談タイム】お申し込みを受け付けました';
 
   if (process.env.NEXT_PUBLIC_API_MODE !== 'production') {
-    console.info('[mock-mail] store notification', {to: STORE_NOTIFICATION_EMAIL, from, subject: `相談タイム申込 ${application.receiptNumber}`});
-    console.info('[mock-mail] cast confirmation', {to: application.email, from, subject: `相談タイム申込受付 ${application.receiptNumber}`});
+    console.info('[mock-mail] store notification', {to: STORE_NOTIFICATION_EMAIL, from, subject: storeSubject});
+    console.info('[mock-mail] cast confirmation', {to: application.email, from, subject: castSubject});
     return;
   }
 
@@ -76,8 +132,8 @@ export async function sendApplicationEmails(application: ConsultationApplication
   }
 
   const messages = [
-    {to: STORE_NOTIFICATION_EMAIL, from, subject: `相談タイム申込 ${application.receiptNumber}`, text: storeBody},
-    {to: application.email, from, subject: `相談タイム申込受付 ${application.receiptNumber}`, text: castBody},
+    {to: STORE_NOTIFICATION_EMAIL, from, subject: storeSubject, text: storeMailBody(application)},
+    {to: application.email, from, subject: castSubject, text: castMailBody(application)},
   ];
 
   for (const message of messages) {
@@ -110,7 +166,7 @@ export async function createConsultationApplication(input: ConsultationApplicati
   const application: ConsultationApplication = {
     ...input,
     id: crypto.randomUUID(),
-    receiptNumber: `CT-${Date.now().toString().slice(-8)}`,
+    receiptNumber: `CS-${Date.now().toString().slice(-8)}`,
     status: 'received',
     appliedAt: now,
     notificationStatus: 'failed',

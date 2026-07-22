@@ -2,29 +2,34 @@
 
 import {useMemo, useState} from 'react';
 import {useRouter} from 'next/navigation';
-import {CATEGORIES, CONTACT_METHOD_LABELS, METHOD_LABELS, STORES} from '@/constants/consultation';
-import type {ConsultationApplication, ConsultationApplicationInput, ConsultationMethod, ContactMethod} from '@/types/consultation';
+import {CATEGORIES, CONTACT_METHOD_LABELS} from '@/constants/consultation';
+import {DateTimePreferenceField} from '@/components/consultation/DateTimePreferenceField';
+import type {ConsultationApplication, ConsultationApplicationInput, ContactMethod, DateTimePreference} from '@/types/consultation';
 
 type FormState = Omit<ConsultationApplicationInput, 'idempotencyKey' | 'website'> & {website: string};
 
 const initialState: FormState = {
   stageName: '',
-  storeName: '',
   email: '',
-  phone: '',
   preferredContactMethod: '' as ContactMethod,
-  contactNote: '',
-  firstChoiceAt: '',
-  secondChoiceAt: '',
-  thirdChoiceAt: '',
-  preferredConsultationMethod: '' as ConsultationMethod,
-  preferredStaff: '',
+  firstChoice: {date: '', time: ''},
+  secondChoice: undefined,
+  thirdChoice: undefined,
+  preferredStaff: 'おまかせ',
   categories: [],
   note: '',
   specialRequest: '',
   privacyConsent: false,
   website: '',
 };
+
+function preferenceKey(value?: DateTimePreference) {
+  return value?.date && value.time ? `${value.date} ${value.time}` : '';
+}
+
+function preferenceComplete(value?: DateTimePreference) {
+  return Boolean(value?.date && value.time);
+}
 
 export function ApplicationForm() {
   const router = useRouter();
@@ -44,6 +49,18 @@ export function ApplicationForm() {
         ? current.categories.filter((category) => category !== code)
         : [...current.categories, code],
     }));
+  }
+
+  function duplicateErrors() {
+    const entries = [
+      ['firstChoice', form.firstChoice],
+      ['secondChoice', form.secondChoice],
+      ['thirdChoice', form.thirdChoice],
+    ] as const;
+    const selected = entries.filter(([, value]) => preferenceComplete(value));
+    const counts = new Map<string, number>();
+    selected.forEach(([, value]) => counts.set(preferenceKey(value), (counts.get(preferenceKey(value)) ?? 0) + 1));
+    return Object.fromEntries(entries.map(([key, value]) => [key, counts.get(preferenceKey(value)) && counts.get(preferenceKey(value))! > 1 ? '同じ日時を複数の希望欄へ登録できません。' : '']));
   }
 
   async function submit() {
@@ -67,30 +84,26 @@ export function ApplicationForm() {
     }
   }
 
+  const dateErrors = duplicateErrors();
+
   return (
     <main className="container narrow">
       <h1>相談タイムを申し込む</h1>
       <p className="notice">フォーム送信時点では予約確定ではありません。担当スタッフからの連絡をもって日時が確定します。</p>
       {error && <p className="error" role="alert">{error}</p>}
       <div className="card">
+        <h2>キャスト情報</h2>
         <label>源氏名 <span className="required">必須</span><input value={form.stageName} onChange={(event) => update('stageName', event.target.value)} autoComplete="nickname" /></label>
-        <label>所属店舗 <span className="required">必須</span><select value={form.storeName} onChange={(event) => update('storeName', event.target.value)}><option value="">選択してください</option>{STORES.map((store) => <option key={store} value={store}>{store}</option>)}</select></label>
         <label>メールアドレス <span className="required">必須</span><input type="email" value={form.email} onChange={(event) => update('email', event.target.value)} autoComplete="email" /></label>
-        <label>電話番号 <span className="muted">任意</span><input type="tel" value={form.phone} onChange={(event) => update('phone', event.target.value)} autoComplete="tel" /></label>
         <label>希望連絡方法 <span className="required">必須</span><select value={form.preferredContactMethod} onChange={(event) => update('preferredContactMethod', event.target.value as ContactMethod)}><option value="">選択してください</option>{Object.entries(CONTACT_METHOD_LABELS).map(([code, label]) => <option key={code} value={code}>{label}</option>)}</select></label>
-        <label>希望連絡方法の補足 <span className="muted">任意</span><input value={form.contactNote} onChange={(event) => update('contactNote', event.target.value)} placeholder="例：LINEは18時以降が返信しやすいです" /></label>
       </div>
 
       <div className="card">
-        <h2>希望日時</h2>
-        <label>第1希望日時 <span className="required">必須</span><input type="datetime-local" value={form.firstChoiceAt} onChange={(event) => update('firstChoiceAt', event.target.value)} /></label>
-        <label>第2希望日時 <span className="muted">推奨</span><input type="datetime-local" value={form.secondChoiceAt} onChange={(event) => update('secondChoiceAt', event.target.value)} /></label>
-        <label>第3希望日時 <span className="muted">任意</span><input type="datetime-local" value={form.thirdChoiceAt} onChange={(event) => update('thirdChoiceAt', event.target.value)} /></label>
-        <label>希望相談方法 <span className="required">必須</span><select value={form.preferredConsultationMethod} onChange={(event) => update('preferredConsultationMethod', event.target.value as ConsultationMethod)}><option value="">選択してください</option>{Object.entries(METHOD_LABELS).map(([code, label]) => <option key={code} value={code}>{label}</option>)}</select></label>
-        <label>希望担当者 <span className="muted">任意</span><input value={form.preferredStaff} onChange={(event) => update('preferredStaff', event.target.value)} placeholder="指定がなければ空欄でOK" /></label>
-      </div>
-
-      <div className="card">
+        <h2>相談内容</h2>
+        <DateTimePreferenceField label="第1希望日時" required value={form.firstChoice} error={dateErrors.firstChoice} onChange={(value) => update('firstChoice', value ?? {date: '', time: ''})} />
+        <DateTimePreferenceField label="第2希望日時" value={form.secondChoice} error={dateErrors.secondChoice} onChange={(value) => update('secondChoice', value)} />
+        <DateTimePreferenceField label="第3希望日時" value={form.thirdChoice} error={dateErrors.thirdChoice} onChange={(value) => update('thirdChoice', value)} />
+        <label>希望担当者 <span className="muted">任意</span><input value={form.preferredStaff} onChange={(event) => update('preferredStaff', event.target.value)} placeholder="指定がなければ、おまかせで受け付けます" /></label>
         <fieldset>
           <legend>相談カテゴリ <span className="required">1つ以上必須</span></legend>
           <div className="grid two">

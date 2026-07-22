@@ -1,17 +1,17 @@
-export type ContactMethod = 'email' | 'phone' | 'line';
-export type ConsultationMethod = 'in_person' | 'phone' | 'line' | 'online';
+export type ContactMethod = 'line' | 'email' | 'phone' | 'any';
+
+export type DateTimePreference = {
+  date: string;
+  time: string;
+};
 
 export type ConsultationApplicationInput = {
   stageName: string;
-  storeName: string;
   email: string;
-  phone?: string;
   preferredContactMethod: ContactMethod;
-  contactNote?: string;
-  firstChoiceAt: string;
-  secondChoiceAt?: string;
-  thirdChoiceAt?: string;
-  preferredConsultationMethod: ConsultationMethod;
+  firstChoice: DateTimePreference;
+  secondChoice?: DateTimePreference;
+  thirdChoice?: DateTimePreference;
   preferredStaff?: string;
   categories: string[];
   note?: string;

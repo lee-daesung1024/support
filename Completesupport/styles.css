@@ -605,6 +605,13 @@ h3 {
   font-weight: 900;
 }
 
+.asset-note {
+  margin-bottom: 18px;
+  color: var(--text-soft);
+  font-size: 0.72rem;
+  line-height: 1.6;
+}
+
 .faq-list {
   display: grid;
   gap: 10px;

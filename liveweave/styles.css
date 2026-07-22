@@ -244,59 +244,6 @@ h3 {
   width: 100%;
 }
 
-.hero-visual {
-  position: relative;
-  min-height: 250px;
-  border-radius: 28px;
-  overflow: hidden;
-  background: linear-gradient(145deg, var(--mint), #ffffff 70%);
-  border: 1px solid rgba(7, 203, 171, 0.18);
-}
-
-.soft-card,
-.circle {
-  position: absolute;
-}
-
-.soft-card {
-  width: 58%;
-  min-width: 180px;
-  height: 92px;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.86);
-  box-shadow: 0 20px 40px rgba(4, 151, 127, 0.14);
-}
-
-.card-one {
-  top: 38px;
-  left: 28px;
-}
-
-.card-two {
-  right: 28px;
-  bottom: 38px;
-}
-
-.circle {
-  border-radius: 999px;
-  background: rgba(7, 203, 171, 0.18);
-}
-
-.circle-a {
-  top: 86px;
-  right: 42px;
-  width: 88px;
-  height: 88px;
-}
-
-.circle-b {
-  bottom: 34px;
-  left: 58px;
-  width: 42px;
-  height: 42px;
-  background: rgba(59, 130, 246, 0.14);
-}
-
 .card-section,
 .final-cta {
   padding: clamp(20px, 6vw, 34px);

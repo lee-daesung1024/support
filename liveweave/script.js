@@ -131,13 +131,19 @@
     });
   }
 
+  function updateMobileCta() {
+    var mobileCta = $('[data-mobile-cta]');
+    var hero = $('.hero');
+    if (!mobileCta || !hero) return;
+    mobileCta.classList.toggle('is-hidden', hero.getBoundingClientRect().bottom > 80 || !$('#lp-view').classList.contains('is-active'));
+  }
+
   function showView(name) {
     $$('.view').forEach(function (view) {
       view.classList.remove('is-active');
     });
     $('#' + name + '-view').classList.add('is-active');
-    var mobileCta = $('[data-mobile-cta]');
-    mobileCta.classList.toggle('is-hidden', name !== 'lp');
+    updateMobileCta();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -232,33 +238,12 @@
     });
   }
 
-  function renderApplicationCard() {
-    var card = $('#reservation-card');
-    if (!booking.reservationNumber) {
-      card.className = 'card-section empty-state';
-      card.innerHTML = '<p>現在、このデモで表示できる申込受付はありません。</p><button class="button primary" data-view-button="apply">相談タイムを申し込む</button>';
-      bindViewButtons(card);
-      return;
-    }
-    card.className = 'card-section';
-    card.innerHTML =
-      '<h2>申込受付済み</h2>' +
-      '<p><strong>' + formatDateTime() + '</strong></p>' +
-      '<p>源氏名：' + booking.stageName + '</p>' + '<p>担当者：' + booking.staff + '</p>' +
-      '<p>相談カテゴリ：' + booking.categories.join('、') + '</p>' +
-      '<p>ステータス：申込受付済み</p>' +
-      '<p>受付番号：' + booking.reservationNumber + '</p>' +
-      '<button class="button secondary" data-view-button="apply">デモでもう一度申し込む</button>';
-    bindViewButtons(card);
-  }
-
   function completeBooking() {
     $('#complete-button').disabled = true;
     $('#complete-button').textContent = '処理中...';
     window.setTimeout(function () {
       booking.reservationNumber = 'LW-' + String(Date.now()).slice(-6);
       renderDefinitionList('#complete-list');
-      renderApplicationCard();
       showStep(4);
       $('#complete-button').disabled = false;
       $('#complete-button').textContent = '申込内容を送信する';
@@ -273,9 +258,6 @@
         if (view === 'apply') {
           showView('apply');
           showStep(1);
-        } else if (view === 'list') {
-          renderApplicationCard();
-          showView('list');
         } else {
           showView(view);
         }
@@ -324,6 +306,8 @@
     bindViewButtons(document);
     bindStepButtons();
     bindInputs();
+    updateMobileCta();
+    window.addEventListener('scroll', updateMobileCta, { passive: true });
   }
 
   init();

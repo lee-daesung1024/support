@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import {CATEGORIES} from '@/constants/consultation';
+import {LandingFixedCta} from '@/components/consultation/LandingFixedCta';
 
 const faqs = [
   ['売上が悪い人が呼ばれるものですか？', 'いいえ。売上だけを理由に責めるための時間ではありません。働き方や困りごとを一緒に整理するための時間です。'],
@@ -14,7 +15,7 @@ const faqs = [
 export function Landing() {
   return (
     <main className="container lp">
-      <section className="hero">
+      <section className="hero" data-lp-hero>
         <p className="step">キャストサポート</p>
         <h1>ひとりで抱えず、気軽に話せる時間を。</h1>
         <p>相談タイムは、あなたがもっと安心して働き、無理なく稼ぎやすくするためのサポートです。</p>
@@ -24,15 +25,17 @@ export function Landing() {
           <span className="chip">強制なし</span>
           <span className="chip">申込後に日時調整</span>
         </div>
-        <p>
-          <Link className="btn" href="/consultation/apply">相談タイムを申し込む</Link>
-        </p>
+        <p><Link className="btn hero-cta" href="/consultation/apply">相談タイムを申し込む</Link></p>
       </section>
 
       <section className="card">
         <h2>相談タイムは、評価のための面談ではありません</h2>
-        <p>売上を責めたり、無理な出勤をお願いしたりする時間ではありません。困っていること、不安なこと、もっと良くしたいことを一緒に整理するための時間です。</p>
-        <p className="notice">フォーム送信時点では予約確定ではありません。担当スタッフからの連絡をもって日時が確定します。</p>
+        <p>売上を責めたり、無理な出勤をお願いしたりする時間ではありません。困っていること、不安なこと、もっと良くしたいことを一緒に整理するための時間です。特に相談がない場合は、最近の近況を少し話すだけでも大丈夫です。</p>
+        <div className="grid three">
+          <div className="point-card"><h3>安心して話せる</h3></div>
+          <div className="point-card"><h3>あなたに合わせて一緒に考える</h3></div>
+          <div className="point-card"><h3>5〜15分で気軽に利用できる</h3></div>
+        </div>
       </section>
 
       <section>
@@ -80,7 +83,7 @@ export function Landing() {
         <p>大きな悩みでなくても構いません。働きやすくするための時間として、気軽に利用してください。</p>
         <Link className="btn" href="/consultation/apply">相談タイムを申し込む</Link>
       </section>
-      <div className="mobile-fixed"><Link className="btn" href="/consultation/apply">相談タイムを申し込む</Link></div>
+      <LandingFixedCta />
     </main>
   );
 }

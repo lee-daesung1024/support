@@ -19,7 +19,7 @@
       <nav class="header-nav" aria-label="主要ナビゲーション">
         <a href="#about">相談タイムとは</a>
         <a href="#faq">FAQ</a>
-        <button class="link-button" data-view-button="list">予約を見る</button>
+        <button class="link-button" data-view-button="list">受付を見る</button>
       </nav>
     </header>
 
@@ -39,8 +39,8 @@
               <span>話せる範囲でOK</span>
             </div>
             <div class="hero-actions">
-              <button class="button primary" data-view-button="reserve">相談タイムを予約する</button>
-              <button class="button secondary" data-view-button="list">予約済みの相談を見る</button>
+              <button class="button primary" data-view-button="apply">相談タイムを申し込む</button>
+              <button class="button secondary" data-view-button="list">受付内容を見る</button>
             </div>
           </div>
           <div class="hero-visual" aria-hidden="true">
@@ -115,7 +115,7 @@
           <ol class="step-grid">
             <li><span>STEP 1</span><strong>希望日時を選ぶ</strong></li>
             <li><span>STEP 2</span><strong>相談したい内容を選ぶ</strong></li>
-            <li><span>STEP 3</span><strong>予約内容を確認する</strong></li>
+            <li><span>STEP 3</span><strong>申込内容を確認する</strong></li>
             <li><span>STEP 4</span><strong>当日は5〜15分ほどお話し</strong></li>
           </ol>
           <p class="support-text">
@@ -132,11 +132,11 @@
         <section class="section-shell final-cta">
           <h2>少し話してみようかな、くらいで大丈夫です。</h2>
           <p>大きな悩みでなくても構いません。働きやすくするための時間として、気軽に利用してください。</p>
-          <button class="button primary" data-view-button="reserve">相談タイムを予約する</button>
+          <button class="button primary" data-view-button="apply">相談タイムを申し込む</button>
         </section>
       </section>
 
-      <section id="reserve-view" class="view" aria-labelledby="reserve-title">
+      <section id="apply-view" class="view" aria-labelledby="apply-title">
         <div class="section-shell flow-shell">
           <button class="back-button" data-view-button="lp">← LPへ戻る</button>
           <div class="progress" aria-label="予約ステップ">
@@ -147,17 +147,36 @@
           </div>
 
           <form id="booking-form" novalidate>
-            <section class="flow-step is-active" data-step="1" aria-labelledby="reserve-title">
-              <p class="eyebrow">RESERVE</p>
-              <h1 id="reserve-title">相談日時を選ぶ</h1>
+            <section class="flow-step is-active" data-step="1" aria-labelledby="apply-title">
+              <p class="eyebrow">APPLY</p>
+              <h1 id="apply-title">本人情報と希望日時を入力する</h1>
               <div class="card-section form-card">
-                <p class="profile-box">キャスト名：山田 はるか<br />所属店舗：ミント新宿店</p>
+                <label>源氏名 <input id="stage-name-input" name="stageName" required placeholder="例：はるか" /></label>
+                <label>所属店舗
+                  <select id="store-input" name="store" required>
+                    <option value="">選択してください</option>
+                    <option value="ミント新宿店">ミント新宿店</option>
+                    <option value="ミント池袋店">ミント池袋店</option>
+                    <option value="ミント横浜店">ミント横浜店</option>
+                  </select>
+                </label>
+                <label>メールアドレス <input id="email-input" name="email" type="email" required /></label>
+                <label>電話番号 <input id="phone-input" name="phone" type="tel" /></label>
+                <label>希望連絡方法
+                  <select id="contact-method-input" name="contactMethod" required>
+                    <option value="">選択してください</option>
+                    <option value="メール">メール</option>
+                    <option value="電話">電話</option>
+                    <option value="LINE">LINE</option>
+                  </select>
+                </label>
+                <label>希望連絡方法の補足 <input id="contact-note-input" name="contactNote" /></label>
                 <label>
-                  希望日
+                  第1希望日
                   <input id="date-input" name="date" type="date" required />
                 </label>
                 <label>
-                  希望時間
+                  第1希望時間
                   <select id="time-input" name="time" required>
                     <option value="">選択してください</option>
                     <option value="11:00">11:00（空きあり）</option>
@@ -168,8 +187,10 @@
                     <option value="16:30">16:30（空きあり）</option>
                   </select>
                 </label>
+                <label>第2希望日時（推奨）<input id="second-choice-input" type="datetime-local" /></label>
+                <label>第3希望日時（任意）<input id="third-choice-input" type="datetime-local" /></label>
                 <label>
-                  相談方法
+                  希望相談方法
                   <select id="method-input" name="method" required>
                     <option value="">選択してください</option>
                     <option value="対面">対面</option>
@@ -179,7 +200,7 @@
                   </select>
                 </label>
                 <label>
-                  担当者
+                  希望担当者
                   <select id="staff-input" name="staff">
                     <option value="おまかせ">おまかせ</option>
                     <option value="佐藤">佐藤</option>
@@ -218,7 +239,7 @@
                 <div class="emergency-box">
                   <strong>緊急時のご案内</strong>
                   <p>
-                    身の危険、お客様による盗撮・暴力・脅迫、今すぐ対応が必要なトラブルの場合は、予約を待たずに店舗スタッフへ直接連絡してください。
+                    身の危険、お客様による盗撮・暴力・脅迫、今すぐ対応が必要なトラブルの場合は、申込を待たずに店舗スタッフへ直接連絡してください。
                   </p>
                   <a href="tel:0312345678">店舗へ電話</a>
                   <a href="https://line.me/" target="_blank" rel="noreferrer">LINE公式へ</a>
@@ -234,26 +255,26 @@
 
             <section class="flow-step" data-step="3" aria-labelledby="confirm-title">
               <p class="eyebrow">CONFIRM</p>
-              <h1 id="confirm-title">予約内容を確認する</h1>
+              <h1 id="confirm-title">申込内容を確認する</h1>
               <div class="card-section form-card">
                 <dl id="confirm-list" class="confirm-list"></dl>
-                <p class="notice">このデモではAPI通信や保存は行いません。Liveweave確認用のモック完了画面へ進みます。</p>
+                <p class="notice">このデモではAPI通信やメール送信は行いません。Liveweave確認用の申込受付完了画面へ進みます。</p>
                 <div class="button-row">
                   <button class="button secondary" type="button" data-prev-step="2">修正する</button>
-                  <button id="complete-button" class="button primary" type="button">予約を確定する</button>
+                  <button id="complete-button" class="button primary" type="button">申込内容を送信する</button>
                 </div>
               </div>
             </section>
 
             <section class="flow-step" data-step="4" aria-labelledby="complete-title">
               <p class="eyebrow">COMPLETE</p>
-              <h1 id="complete-title">相談タイムの予約が完了しました</h1>
+              <h1 id="complete-title">相談タイムのお申し込みを受け付けました</h1>
               <div class="card-section form-card success-card">
                 <div class="success-icon" aria-hidden="true">✓</div>
                 <dl id="complete-list" class="confirm-list"></dl>
-                <p>変更やキャンセルは、予約詳細から行えます。</p>
+                <p>現在はまだ日時確定前です。担当スタッフからの連絡をもって予約確定となります。入力したメールアドレスへ受付内容を送信しました。</p>
                 <div class="button-row">
-                  <button class="button primary" type="button" data-view-button="list">予約内容を見る</button>
+                  <button class="button primary" type="button" data-view-button="list">受付内容を見る</button>
                   <button class="button secondary" type="button" data-view-button="lp">相談タイムTOPへ戻る</button>
                 </div>
               </div>
@@ -266,17 +287,17 @@
         <div class="section-shell flow-shell">
           <button class="back-button" data-view-button="lp">← LPへ戻る</button>
           <p class="eyebrow">RESERVATIONS</p>
-          <h1 id="list-title">予約済みの相談</h1>
+          <h1 id="list-title">申込受付内容</h1>
           <div id="reservation-card" class="card-section empty-state">
-            <p>現在、予約中の相談タイムはありません。</p>
-            <button class="button primary" data-view-button="reserve">相談タイムを予約する</button>
+            <p>現在、このデモで表示できる申込受付はありません。</p>
+            <button class="button primary" data-view-button="apply">相談タイムを申し込む</button>
           </div>
         </div>
       </section>
     </main>
 
     <div class="mobile-fixed-cta" data-mobile-cta>
-      <button class="button primary full" data-view-button="reserve">相談タイムを予約する</button>
+      <button class="button primary full" data-view-button="apply">相談タイムを申し込む</button>
     </div>
 
     <script src="script.js"></script>

@@ -1,6 +1,6 @@
 # キャストサポート 相談タイム
 
-スマートフォンおよびPCブラウザで利用するレスポンシブWebサイトです。ネイティブアプリ、App Store / Google Play公開、ブラウザPush通知を前提にしません。
+スマートフォンおよびPCブラウザで利用するレスポンシブWebサイトです。ネイティブアプリ、キャストマイページ連携、ログイン、予約履歴閲覧は前提にしません。
 
 ## 起動
 
@@ -9,34 +9,46 @@ npm install
 npm run dev
 ```
 
+## 運用方式
+
+キャストは利用するたびに申込フォームへ本人情報を入力します。フォーム送信時点では予約確定ではなく「申込受付」です。日時は担当スタッフからの連絡をもって確定します。
+
 ## 環境変数
 
-`.env.example` をコピーして設定します。`ADMIN_API_KEY`、`SESSION_SECRET` は `NEXT_PUBLIC_` にしないでください。
+`.env.example` をコピーして設定します。メール送信用のAPIキーや認証情報はフロントエンドへ置かず、`NEXT_PUBLIC_` を付けません。
 
-- `NEXT_PUBLIC_API_MODE=mock`: support単体のモックAPIで動作
-- `NEXT_PUBLIC_API_MODE=production`: support側API/BFFから `ADMIN_API_BASE_URL` へ連携する想定
-- `NEXT_PUBLIC_API_BASE_URL=/api`
-- `ADMIN_API_BASE_URL`, `ADMIN_API_KEY`, `SESSION_SECRET`, `LINE_CONTACT_URL`, `SUPPORT_PHONE_NUMBER`
+- `NEXT_PUBLIC_API_MODE=mock`: メール送信をサーバーログへ出すモック動作
+- `NEXT_PUBLIC_API_MODE=production`: `MAIL_API_ENDPOINT` へサーバー側からメール送信
+- `MAIL_API_ENDPOINT`: メール送信サービスのサーバー側エンドポイント
+- `MAIL_API_KEY`: メール送信用APIキー
+- `MAIL_FROM`: 送信元メールアドレス
+
+店舗通知先はサーバー側定数として `kyuden1101@gmail.com` に固定し、ブラウザから変更できません。
 
 ## 主要URL
 
 - `/` `/consultation`: 公開LP
-- `/login`: 電話番号＋ワンタイムコード本人確認（モック）
-- `/consultation/reserve` → `/details` → `/confirm` → `/complete`
-- `/consultation/reservations`, `/consultation/reservations/:id`, `/consultation/reservations/:id/edit`
+- `/consultation/apply`: ログイン不要の相談タイム申込フォーム
+- `/consultation/apply/complete`: 申込受付完了画面
 
 ## API
 
-- `POST /api/auth/request-code`, `POST /api/auth/verify-code`, `GET /api/auth/session`, `POST /api/auth/logout`
-- `GET /api/consultation/availability`
-- `GET|POST /api/consultation/reservations`
-- `GET|PATCH /api/consultation/reservations/:id`
-- `POST /api/consultation/reservations/:id/cancel`
-- `GET /api/consultation/categories`, `/methods`, `/staff`, `/api/stores`
+- `POST /api/consultation/applications`: 申込受付、サーバー側バリデーション、スパム対策、二重送信防止、店舗/本人向けメール送信
+- `GET /api/consultation/categories`: 相談カテゴリ
+- `GET /api/consultation/methods`: 希望相談方法、希望連絡方法、店舗マスター
 
-## 認証と連携
+## セキュリティ
 
-予約以降はHttpOnly Cookieのセッションを確認します。モックではメモリ上に予約を保存し、Idempotency-Keyで二重作成を防ぎます。本番ではsupport側API/BFFから管理システム公開APIへ送信し、管理システムDBへ直接接続しません。予約経路は「supportブラウザLP」です。
+- 相談内容はURLへ含めません。
+- 店舗通知先はサーバー側で固定します。
+- ヘッダーインジェクション、HTML、スクリプト文字をサーバー側で無害化します。
+- honeypotと簡易レート制限でスパム対策を行います。
+- Idempotency-Keyで二重送信を防止します。
+- メール送信エラー時は申込完了として表示しません。
+
+## Liveweave
+
+`liveweave/index.html`, `liveweave/styles.css`, `liveweave/script.js` は外部ビルドなしでLPと申込デモを確認できます。
 
 ## テスト
 
@@ -45,10 +57,6 @@ npm run typecheck
 npm run build
 ```
 
-## 対応ブラウザ
-
-iPhone Safari、Android Chrome、PC Chrome、Edge最新版を主対象とします。固定CTAは `env(safe-area-inset-bottom)` を使い、PCでは非表示です。
-
 ## 既知の制約
 
-モック保存はNode.jsプロセスのメモリ内です。プロセス再起動後は初期化されます。本番APIの実URL・通知基盤・監査ログ永続化は管理システム公開APIの仕様確定後に接続してください。
+モック申込保存はNode.jsプロセスのメモリ内です。本番ではDBまたは安全なサーバー側ストレージへ置き換えてください。メール送信は汎用HTTPメールAPIを想定しているため、実サービスの仕様に合わせて `sendApplicationEmails` のリクエスト形式を調整してください。

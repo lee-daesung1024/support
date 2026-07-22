@@ -1,1 +1,0 @@
-import {Suspense} from 'react';import {Confirm} from '@/components/consultation/ClientApp';export const metadata={robots:{index:false,follow:false},title:'予約内容を確認する'};export default function Page(){return <Suspense><Confirm/></Suspense>}

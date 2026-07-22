@@ -38,12 +38,20 @@
       '内容は誰まで共有されますか？',
       '原則として対応に必要なスタッフのみで取り扱います。緊急対応が必要な場合は、必要な範囲で責任者へ共有することがあります。'
     ],
-    ['予約後に変更できますか？', 'ブラウザ上の予約詳細から日時、内容の変更、キャンセルができます。']
+    ['申し込み後に日時は確定しますか？', 'フォーム送信後、店舗からの連絡をもって日時が確定します。']
   ];
 
   var booking = {
+    stageName: '',
+    storeName: '',
+    email: '',
+    phone: '',
+    contactMethod: '',
+    contactNote: '',
     date: '',
     time: '',
+    secondChoiceAt: '',
+    thirdChoiceAt: '',
     method: '',
     staff: 'おまかせ',
     categories: [],
@@ -148,8 +156,16 @@
   }
 
   function readStepOne() {
+    booking.stageName = $('#stage-name-input').value.trim();
+    booking.storeName = $('#store-input').value;
+    booking.email = $('#email-input').value.trim();
+    booking.phone = $('#phone-input').value.trim();
+    booking.contactMethod = $('#contact-method-input').value;
+    booking.contactNote = $('#contact-note-input').value.trim();
     booking.date = $('#date-input').value;
     booking.time = $('#time-input').value;
+    booking.secondChoiceAt = $('#second-choice-input').value;
+    booking.thirdChoiceAt = $('#third-choice-input').value;
     booking.method = $('#method-input').value;
     booking.staff = $('#staff-input').value;
   }
@@ -167,8 +183,8 @@
   function validateStepOne() {
     readStepOne();
     var error = $('#step-one-error');
-    if (!booking.date || !booking.time || !booking.method) {
-      error.textContent = '希望日、希望時間、相談方法を選択してください。';
+    if (!booking.stageName || !booking.storeName || !booking.email || !booking.contactMethod || !booking.date || !booking.time || !booking.method) {
+      error.textContent = '源氏名、所属店舗、メールアドレス、希望連絡方法、第1希望日時、希望相談方法を入力してください。';
       return false;
     }
     error.textContent = '';
@@ -196,15 +212,21 @@
   function renderDefinitionList(selector) {
     var list = $(selector);
     var rows = [
-      ['キャスト名', '山田 はるか'],
-      ['店舗', 'ミント新宿店'],
-      ['予約日時', formatDateTime()],
+      ['源氏名', booking.stageName],
+      ['店舗', booking.storeName],
+      ['メールアドレス', booking.email],
+      ['電話番号', booking.phone || '未入力'],
+      ['希望連絡方法', booking.contactMethod],
+      ['希望連絡方法の補足', booking.contactNote || '未入力'],
+      ['第1希望日時', formatDateTime()],
+      ['第2希望日時', booking.secondChoiceAt || '未入力'],
+      ['第3希望日時', booking.thirdChoiceAt || '未入力'],
       ['相談方法', booking.method],
       ['担当者', booking.staff],
       ['相談カテゴリ', booking.categories.join('、')],
       ['事前相談内容', booking.note || '未入力'],
       ['配慮希望', booking.requests.length ? booking.requests.join('、') : 'なし'],
-      ['予約番号', booking.reservationNumber || '確定後に発行']
+      ['受付番号', booking.reservationNumber || '確定後に発行']
     ];
     list.innerHTML = '';
     rows.forEach(function (row) {
@@ -217,23 +239,23 @@
     });
   }
 
-  function renderReservationCard() {
+  function renderApplicationCard() {
     var card = $('#reservation-card');
     if (!booking.reservationNumber) {
       card.className = 'card-section empty-state';
-      card.innerHTML = '<p>現在、予約中の相談タイムはありません。</p><button class="button primary" data-view-button="reserve">相談タイムを予約する</button>';
+      card.innerHTML = '<p>現在、このデモで表示できる申込受付はありません。</p><button class="button primary" data-view-button="apply">相談タイムを申し込む</button>';
       bindViewButtons(card);
       return;
     }
     card.className = 'card-section';
     card.innerHTML =
-      '<h2>予約済み</h2>' +
+      '<h2>申込受付済み</h2>' +
       '<p><strong>' + formatDateTime() + '</strong></p>' +
-      '<p>相談方法：' + booking.method + ' / 担当者：' + booking.staff + '</p>' +
+      '<p>源氏名：' + booking.stageName + ' / 店舗：' + booking.storeName + '</p>' + '<p>相談方法：' + booking.method + ' / 担当者：' + booking.staff + '</p>' +
       '<p>相談カテゴリ：' + booking.categories.join('、') + '</p>' +
-      '<p>ステータス：予約済み</p>' +
-      '<p>予約番号：' + booking.reservationNumber + '</p>' +
-      '<button class="button secondary" data-view-button="reserve">デモでもう一度予約する</button>';
+      '<p>ステータス：申込受付済み</p>' +
+      '<p>受付番号：' + booking.reservationNumber + '</p>' +
+      '<button class="button secondary" data-view-button="apply">デモでもう一度申し込む</button>';
     bindViewButtons(card);
   }
 
@@ -243,10 +265,10 @@
     window.setTimeout(function () {
       booking.reservationNumber = 'LW-' + String(Date.now()).slice(-6);
       renderDefinitionList('#complete-list');
-      renderReservationCard();
+      renderApplicationCard();
       showStep(4);
       $('#complete-button').disabled = false;
-      $('#complete-button').textContent = '予約を確定する';
+      $('#complete-button').textContent = '申込内容を送信する';
     }, 450);
   }
 
@@ -255,11 +277,11 @@
     Array.prototype.slice.call(root.querySelectorAll('[data-view-button]')).forEach(function (button) {
       button.addEventListener('click', function () {
         var view = button.getAttribute('data-view-button');
-        if (view === 'reserve') {
-          showView('reserve');
+        if (view === 'apply') {
+          showView('apply');
           showStep(1);
         } else if (view === 'list') {
-          renderReservationCard();
+          renderApplicationCard();
           showView('list');
         } else {
           showView(view);

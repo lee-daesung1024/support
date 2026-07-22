@@ -89,6 +89,7 @@
 
   function renderLandingCategories() {
     var list = $('#category-card-list');
+    if (!list) return;
     categories.forEach(function (category) {
       list.appendChild(createElement('article', 'category-card', category));
     });

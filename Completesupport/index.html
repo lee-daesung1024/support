@@ -25,93 +25,120 @@
 
     <main id="app">
       <section id="lp-view" class="view is-active" aria-labelledby="lp-title">
-        <div id="top" class="hero section-shell">
-          <div class="hero-copy">
-            <p class="eyebrow">キャストサポート</p>
-            <h1 id="lp-title">ひとりで抱えず、気軽に話せる時間を。</h1>
-            <p class="lead">
-              相談タイムは、あなたがもっと安心して働き、無理なく稼ぎやすくするためのサポートです。
-            </p>
-            <div class="trust-badges" aria-label="安心して利用できるポイント">
-              <span>5〜15分</span>
-              <span>説教なし</span>
-              <span>強制なし</span>
-              <span>話せる範囲でOK</span>
+        <div id="top" class="hero hero-story">
+          <div class="hero-inner section-shell">
+            <div class="hero-copy">
+              <p class="eyebrow">CAST SUPPORT / 相談タイム</p>
+              <h1 id="lp-title">ひとりで<br /><span>頑張り続けなくて</span><br />大丈夫。</h1>
+              <p class="lead">
+                うまく話せなくても大丈夫です。<br />まずは、今感じていることを聞かせてください。
+              </p>
+              <p class="hero-reassurance">売上や出勤を責めるための面談ではありません。相談したことだけで不利になることはありません。</p>
+              <div class="trust-badges" aria-label="安心して利用できるポイント">
+                <span>5〜15分</span>
+                <span>説教なし</span>
+                <span>強制なし</span>
+                <span>話せる範囲でOK</span>
+              </div>
+              <div class="hero-actions">
+                <button class="button primary full" data-view-button="apply">相談タイムを申し込む</button>
+                <a class="hero-sub-link" href="#about">どんな相談ができるか見る</a>
+              </div>
             </div>
-            <div class="hero-actions">
-              <button class="button primary" data-view-button="apply">相談タイムを申し込む</button>
-              <button class="button secondary" data-view-button="list">受付内容を見る</button>
-            </div>
-          </div>
-          <div class="hero-visual" aria-hidden="true">
-            <div class="soft-card card-one"></div>
-            <div class="soft-card card-two"></div>
-            <div class="circle circle-a"></div>
-            <div class="circle circle-b"></div>
+            <figure class="hero-photo">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Smiling_Japanese_Woman.jpg/640px-Smiling_Japanese_Woman.jpg" alt="やわらかく微笑む日本人相談スタッフのイメージ" />
+              <figcaption class="hand-note">「まとまっていなくても、そのままで大丈夫です。」</figcaption>
+              <p class="photo-credit">※仮写真（Wikimedia Commons）</p>
+            </figure>
           </div>
         </div>
 
-        <section id="about" class="section-shell card-section">
-          <p class="eyebrow">ABOUT</p>
-          <h2>相談タイムは、評価のための面談ではありません</h2>
-          <p>
-            売上を責めたり、無理な出勤をお願いしたりする時間ではありません。困っていること、不安なこと、もっと良くしたいことを一緒に整理するための時間です。特に相談がない場合は、最近の近況を少し話すだけでも大丈夫です。
-          </p>
-          <div class="feature-grid">
-            <article>
-              <h3>安心して話せる</h3>
-              <p>無理に話す必要はありません。話せる範囲で大丈夫です。</p>
-            </article>
-            <article>
-              <h3>あなたに合わせて考える</h3>
-              <p>働き方や目標に合わせて、無理のない方法を一緒に考えます。</p>
-            </article>
-            <article>
-              <h3>短時間で利用できる</h3>
-              <p>目安は5〜15分。出勤前後でも気軽に利用できます。</p>
-            </article>
+        <section class="worry-section story-band" aria-labelledby="worry-title">
+          <div class="section-shell worry-layout">
+            <div class="worry-copy">
+              <p class="eyebrow">WORRY</p>
+              <h2 id="worry-title">もしかして、<br /><span>同じことで</span><br />悩んでいませんか。</h2>
+              <ul class="check-list mood-list">
+                <li>予約が減ってきて、理由が分からない</li>
+                <li>写メ日記を書かなきゃと思うほどしんどい</li>
+                <li>NGや苦手なお客様への伝え方に困っている</li>
+                <li>辞めたい気持ちを話したら止められそうで言えない</li>
+              </ul>
+              <p class="micro-copy">ひとつでも当てはまったら、相談して大丈夫です。</p>
+            </div>
+            <div class="worry-photo-wrap">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Japanese_girl_smiles.jpg/640px-Japanese_girl_smiles.jpg" alt="少し考え込む日本人女性のイメージ" />
+              <p class="hand-note worry-note">「こんなことで相談していいのかな…」と思うことほど、話してほしいことです。</p>
+            </div>
           </div>
         </section>
 
-        <section class="section-shell">
-          <p class="eyebrow">CATEGORY</p>
-          <h2>こんな相談ができます</h2>
-          <div id="category-card-list" class="category-grid" aria-label="相談カテゴリ一覧"></div>
-        </section>
-
-        <section class="section-shell split-section">
-          <div class="card-section">
-            <p class="eyebrow">BENEFIT</p>
-            <h2>相談すると、こんなことにつながります</h2>
-            <ul class="check-list">
-              <li>今より働きやすくする方法が見つかる</li>
-              <li>収入や指名を増やすヒントが見つかる</li>
-              <li>不安やストレスを一人で抱え込まずに済む</li>
-              <li>お客様とのトラブルを早めに相談できる</li>
-              <li>店舗に改善してほしいことを直接伝えられる</li>
-              <li>自分に合った出勤や働き方を一緒に考えられる</li>
-              <li>困ったときに相談できる担当者が明確になる</li>
-            </ul>
-          </div>
-          <div class="card-section promise-card">
-            <p class="eyebrow">PROMISE</p>
-            <h2>安心して利用していただくためのお約束</h2>
-            <ul class="check-list">
-              <li>説教や一方的な指導はしません</li>
-              <li>相談タイムへの参加は強制ではありません</li>
-              <li>話したくないことを無理に聞きません</li>
-              <li>相談内容は必要な範囲で大切に取り扱います</li>
-              <li>本人の希望を無視して出勤を強制しません</li>
-            </ul>
-            <p class="notice">
-              安全確保、重大なトラブル、法令違反のおそれなど、緊急対応が必要な場合は、必要な範囲で責任者へ共有することがあります。
-            </p>
+        <section id="about" class="about-section story-band">
+          <div class="section-shell about-layout">
+            <div>
+              <p class="eyebrow">ABOUT</p>
+              <h2>相談タイムは、<br /><span>評価のための面談</span>ではありません</h2>
+              <p>
+                売上を責めたり、無理な出勤をお願いしたりする時間ではありません。困っていること、不安なこと、もっと良くしたいことを一緒に整理するための時間です。
+              </p>
+            </div>
+            <div class="comfort-panel">
+              <p class="large-copy">話せる範囲で、少しずつ。</p>
+              <p>特に相談がない場合は、最近の近況を少し話すだけでも大丈夫です。</p>
+              <ul class="mini-promises">
+                <li>無理に聞き出しません</li>
+                <li>あなたのペースを大切にします</li>
+                <li>女性スタッフ希望も選べます</li>
+                <li>必要な範囲だけ共有します</li>
+              </ul>
+            </div>
           </div>
         </section>
 
-        <section class="section-shell">
+        <section class="benefit-section story-band">
+          <div class="section-shell">
+            <p class="eyebrow">SUPPORT</p>
+            <h2>こんなことだけでも、<br /><span>相談して大丈夫です。</span></h2>
+            <div class="benefit-story-grid">
+              <article class="benefit-item item-mint"><span>01</span><h3>無理なく続けられるペースを決められる</h3><p>出勤を増やす前提ではなく、生活や体調に合う働き方から整理します。</p></article>
+              <article class="benefit-item item-cream"><span>02</span><h3>今すぐ直せる改善点が1つ見つかる</h3><p>プロフィールや日記、接客で負担を増やさず試せることを一緒に探します。</p></article>
+              <article class="benefit-item item-pink"><span>03</span><h3>辞めるか迷う気持ちも否定されない</h3><p>続ける・休む・減らすなど、気持ちを置き去りにしない選択肢を考えます。</p></article>
+              <article class="benefit-item item-lavender"><span>04</span><h3>困ったお客様への共有方法が分かる</h3><p>NG、断り方、スタッフへの伝え方を、具体的な言葉にして整理します。</p></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="staff-section story-band">
+          <div class="section-shell">
+            <p class="eyebrow">STAFF</p>
+            <h2>この人たちなら、<br /><span>話せそう</span>と思えるように。</h2>
+            <div class="staff-grid">
+              <article class="staff-profile"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Smiling_Japanese_Woman.jpg/330px-Smiling_Japanese_Woman.jpg" alt="佐藤の日本人スタッフイメージ" /><div><p class="role">相談担当 / 佐藤</p><h3>得意な相談：出勤を減らしたい・続け方に迷う</h3><p>「焦らず、今の生活に合う形から一緒に考えましょう。」</p></div></article>
+              <article class="staff-profile"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Adult-asian-business-businessman-businesswoman-caucasian-1629589.jpg/640px-Adult-asian-business-businessman-businesswoman-caucasian-1629589.jpg" alt="鈴木の日本人スタッフイメージ" /><div><p class="role">女性スタッフ / 鈴木</p><h3>得意な相談：写メ日記が続かない・プロフィール改善</h3><p>「苦手なことも、続けやすい方法に置き換えていきます。」</p></div></article>
+              <article class="staff-profile"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Japanese_girl_smiles.jpg/640px-Japanese_girl_smiles.jpg" alt="高橋の日本人スタッフイメージ" /><div><p class="role">サポート担当 / 高橋</p><h3>得意な相談：NG客・苦手客への対応</h3><p>「困った時の伝え方や線引きを、具体的に整理します。」</p></div></article>
+              <article class="staff-profile"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Smiling_Japanese_Woman.jpg/500px-Smiling_Japanese_Woman.jpg" alt="田中の日本人スタッフイメージ" /><div><p class="role">受付担当 / 田中</p><h3>得意な相談：初回相談・誰に話すか迷う内容</h3><p>「何から話せばいいか迷う時は、質問しながらゆっくり進めます。」</p></div></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="voice-section story-band">
+          <div class="section-shell voice-layout">
+            <div>
+              <p class="eyebrow">TALK EXAMPLE</p>
+              <h2>たとえば、<br />こんな相談で大丈夫です</h2>
+              <p class="support-text">口コミの捏造を避けるため、ここでは実在の声ではなく相談例として掲載しています。</p>
+            </div>
+            <div class="voice-notes">
+              <article class="voice-note"><p>「最近、本指名が減っていて不安です。」</p><span>相談例</span></article>
+              <article class="voice-note"><p>「写メ日記を書きたいけど、何を書けばいいか分かりません。」</p><span>相談例</span></article>
+              <article class="voice-note"><p>「辞めるか迷っているけど、まだ決めきれていません。」</p><span>相談例</span></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-shell flow-section">
           <p class="eyebrow">FLOW</p>
-          <h2>利用の流れ</h2>
+          <h2>申し込みは、<br />スマホで1分ほど</h2>
           <ol class="step-grid">
             <li><span>STEP 1</span><strong>希望日時を選ぶ</strong></li>
             <li><span>STEP 2</span><strong>相談したい内容を選ぶ</strong></li>
@@ -124,12 +151,20 @@
         </section>
 
         <section id="faq" class="section-shell">
+          <p class="asset-note">仮写真：Wikimedia Commons掲載素材を表示確認用に使用しています。本番では店舗指定の写真に差し替えてください。</p>
           <p class="eyebrow">FAQ</p>
           <h2>よくある質問</h2>
           <div id="faq-list" class="faq-list"></div>
         </section>
 
         <section class="section-shell final-cta">
+          <div class="pre-cta-promises" aria-label="申し込み前に安心してほしいこと">
+            <span>売上が悪い人だけの面談ではありません</span>
+            <span>話せる範囲で大丈夫です</span>
+            <span>出勤を強制しません</span>
+            <span>女性スタッフ希望も選べます</span>
+            <span>5〜15分だけでも大丈夫です</span>
+          </div>
           <h2>少し話してみようかな、くらいで大丈夫です。</h2>
           <p>大きな悩みでなくても構いません。働きやすくするための時間として、気軽に利用してください。</p>
           <button class="button primary" data-view-button="apply">相談タイムを申し込む</button>
@@ -283,6 +318,6 @@
       <button class="button primary full" data-view-button="apply">相談タイムを申し込む</button>
     </div>
 
-    <script src="script.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>

@@ -25,91 +25,119 @@
 
     <main id="app">
       <section id="lp-view" class="view is-active" aria-labelledby="lp-title">
-        <div id="top" class="hero section-shell">
-          <div class="hero-copy">
-            <p class="eyebrow">キャストサポート</p>
-            <h1 id="lp-title">ひとりで抱えず、気軽に話せる時間を。</h1>
-            <p class="lead">
-              相談タイムは、あなたがもっと安心して働き、無理なく稼ぎやすくするためのサポートです。
-            </p>
-            <div class="trust-badges" aria-label="安心して利用できるポイント">
-              <span>5〜15分</span>
-              <span>説教なし</span>
-              <span>強制なし</span>
-              <span>話せる範囲でOK</span>
+        <div id="top" class="hero hero-story">
+          <div class="hero-inner section-shell">
+            <div class="hero-copy">
+              <p class="eyebrow">CAST SUPPORT / 相談タイム</p>
+              <h1 id="lp-title">ひとりで<br /><span>頑張り続けなくて</span><br />大丈夫。</h1>
+              <p class="lead">
+                うまく話せなくても大丈夫です。<br />まずは、今感じていることを聞かせてください。
+              </p>
+              <div class="trust-badges" aria-label="安心して利用できるポイント">
+                <span>5〜15分</span>
+                <span>説教なし</span>
+                <span>強制なし</span>
+                <span>話せる範囲でOK</span>
+              </div>
+              <div class="hero-actions">
+                <button class="button primary" data-view-button="apply">相談タイムを申し込む</button>
+                <button class="button secondary" data-view-button="list">受付内容を見る</button>
+              </div>
             </div>
-            <div class="hero-actions">
-              <button class="button primary" data-view-button="apply">相談タイムを申し込む</button>
-              <button class="button secondary" data-view-button="list">受付内容を見る</button>
-            </div>
-          </div>
-          <div class="hero-visual" aria-hidden="true">
-            <div class="soft-card card-one"></div>
-            <div class="soft-card card-two"></div>
-            <div class="circle circle-a"></div>
-            <div class="circle circle-b"></div>
+            <figure class="hero-photo">
+              <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80" alt="やわらかく微笑む相談スタッフ" />
+              <figcaption class="hand-note">「まとまっていなくても、そのままで大丈夫です。」</figcaption>
+            </figure>
           </div>
         </div>
 
-        <section id="about" class="section-shell card-section">
-          <p class="eyebrow">ABOUT</p>
-          <h2>相談タイムは、評価のための面談ではありません</h2>
-          <p>
-            売上を責めたり、無理な出勤をお願いしたりする時間ではありません。困っていること、不安なこと、もっと良くしたいことを一緒に整理するための時間です。特に相談がない場合は、最近の近況を少し話すだけでも大丈夫です。
-          </p>
-          <div class="feature-grid">
-            <article>
-              <h3>安心して話せる</h3>
-              <p>無理に話す必要はありません。話せる範囲で大丈夫です。</p>
-            </article>
-            <article>
-              <h3>あなたに合わせて考える</h3>
-              <p>働き方や目標に合わせて、無理のない方法を一緒に考えます。</p>
-            </article>
-            <article>
-              <h3>短時間で利用できる</h3>
-              <p>目安は5〜15分。出勤前後でも気軽に利用できます。</p>
-            </article>
+        <section class="worry-section story-band" aria-labelledby="worry-title">
+          <div class="section-shell worry-layout">
+            <div class="worry-photo-wrap">
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=760&q=80" alt="少し考え込む女性の横顔" />
+              <p class="hand-note worry-note">「こんなことで相談していいのかな…」と思うことほど、話してほしいことです。</p>
+            </div>
+            <div class="worry-copy">
+              <p class="eyebrow">WORRY</p>
+              <h2 id="worry-title">もしかして、<br /><span>同じことで</span><br />悩んでいませんか。</h2>
+              <ul class="check-list mood-list">
+                <li>最近予約が減ってきた</li>
+                <li>思うように稼げない</li>
+                <li>写メ日記がしんどい</li>
+                <li>お客様対応で困っている</li>
+                <li>スタッフに相談しづらい</li>
+                <li>辞めようか迷っている</li>
+              </ul>
+            </div>
           </div>
         </section>
 
-        <section class="section-shell">
-          <p class="eyebrow">CATEGORY</p>
-          <h2>こんな相談ができます</h2>
-          <div id="category-card-list" class="category-grid" aria-label="相談カテゴリ一覧"></div>
+        <section id="about" class="about-section story-band">
+          <div class="section-shell about-layout">
+            <div>
+              <p class="eyebrow">ABOUT</p>
+              <h2>相談タイムは、<br /><span>評価のための面談</span>ではありません</h2>
+              <p>
+                売上を責めたり、無理な出勤をお願いしたりする時間ではありません。困っていること、不安なこと、もっと良くしたいことを一緒に整理するための時間です。
+              </p>
+            </div>
+            <div class="comfort-panel">
+              <p class="large-copy">話せる範囲で、少しずつ。</p>
+              <p>特に相談がない場合は、最近の近況を少し話すだけでも大丈夫です。</p>
+              <ul class="mini-promises">
+                <li>無理に聞き出しません</li>
+                <li>あなたのペースを大切にします</li>
+                <li>必要なことを一緒に整理します</li>
+              </ul>
+            </div>
+          </div>
         </section>
 
-        <section class="section-shell split-section">
-          <div class="card-section">
+        <section class="benefit-section story-band">
+          <div class="section-shell">
             <p class="eyebrow">BENEFIT</p>
-            <h2>相談すると、こんなことにつながります</h2>
-            <ul class="check-list">
-              <li>今より働きやすくする方法が見つかる</li>
-              <li>収入や指名を増やすヒントが見つかる</li>
-              <li>不安やストレスを一人で抱え込まずに済む</li>
-              <li>お客様とのトラブルを早めに相談できる</li>
-              <li>店舗に改善してほしいことを直接伝えられる</li>
-              <li>自分に合った出勤や働き方を一緒に考えられる</li>
-              <li>困ったときに相談できる担当者が明確になる</li>
-            </ul>
-          </div>
-          <div class="card-section promise-card">
-            <p class="eyebrow">PROMISE</p>
-            <h2>安心して利用していただくためのお約束</h2>
-            <ul class="check-list">
-              <li>説教や一方的な指導はしません</li>
-              <li>相談タイムへの参加は強制ではありません</li>
-              <li>話したくないことを無理に聞きません</li>
-              <li>相談内容は必要な範囲で大切に取り扱います</li>
-              <li>本人の希望を無視して出勤を強制しません</li>
-            </ul>
-            <p class="notice">
-              安全確保、重大なトラブル、法令違反のおそれなど、緊急対応が必要な場合は、必要な範囲で責任者へ共有することがあります。
-            </p>
+            <h2>相談すると、<br /><span>少し前を向ける</span>ヒントが見つかります</h2>
+            <div class="benefit-story-grid">
+              <article class="benefit-item item-photo">
+                <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=760&q=80" alt="ノートを見ながら相談する様子" />
+              </article>
+              <article class="benefit-item item-mint"><span>01</span><h3>自分に合った働き方が見つかる</h3><p>出勤ペースや目標を、無理なく続けられる形に整えます。</p></article>
+              <article class="benefit-item item-cream"><span>02</span><h3>収入アップのヒントが見つかる</h3><p>プロフィールや日記、接客の見直しポイントを一緒に探します。</p></article>
+              <article class="benefit-item item-pink"><span>03</span><h3>気持ちが軽くなる</h3><p>言葉にするだけで、抱えていた不安が整理されることがあります。</p></article>
+              <article class="benefit-item item-lavender"><span>04</span><h3>困ったお客様への対応方法が分かる</h3><p>NGやトラブルの伝え方を、ひとりで抱えない導線にします。</p></article>
+            </div>
           </div>
         </section>
 
-        <section class="section-shell">
+        <section class="staff-section story-band">
+          <div class="section-shell">
+            <p class="eyebrow">STAFF</p>
+            <h2>この人たちなら、<br /><span>話せそう</span>と思えるように。</h2>
+            <div class="staff-grid">
+              <article class="staff-profile"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=80" alt="佐藤のポートレート" /><div><p class="role">相談担当 / 佐藤</p><h3>得意な相談：働き方・出勤ペース</h3><p>「焦らず、今の生活に合う形から一緒に考えましょう。」</p></div></article>
+              <article class="staff-profile"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=600&q=80" alt="鈴木のポートレート" /><div><p class="role">女性スタッフ / 鈴木</p><h3>得意な相談：写メ日記・プロフィール</h3><p>「苦手なことも、続けやすい方法に置き換えていきます。」</p></div></article>
+              <article class="staff-profile"><img src="https://images.unsplash.com/photo-1554151228-14d9def656e4?auto=format&fit=crop&w=600&q=80" alt="高橋のポートレート" /><div><p class="role">サポート担当 / 高橋</p><h3>得意な相談：お客様対応</h3><p>「困った時の伝え方や線引きを、具体的に整理します。」</p></div></article>
+              <article class="staff-profile"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80" alt="田中のポートレート" /><div><p class="role">受付担当 / 田中</p><h3>得意な相談：はじめての相談</h3><p>「何から話せばいいか迷う時は、質問しながらゆっくり進めます。」</p></div></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="voice-section story-band">
+          <div class="section-shell voice-layout">
+            <div>
+              <p class="eyebrow">VOICE</p>
+              <h2>キャストの声</h2>
+              <p class="support-text">以下はデザイン確認用の仮データです。実在の口コミではありません。</p>
+            </div>
+            <div class="voice-notes">
+              <article class="voice-note"><p>「話す前より、明日やることが少し見えました。」</p><span>20代・在籍キャスト（仮）</span></article>
+              <article class="voice-note"><p>「責められないと分かって、安心して相談できました。」</p><span>30代・在籍キャスト（仮）</span></article>
+              <article class="voice-note"><p>「お客様対応の言い方を一緒に考えてもらえました。」</p><span>20代・在籍キャスト（仮）</span></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-shell flow-section">
           <p class="eyebrow">FLOW</p>
           <h2>利用の流れ</h2>
           <ol class="step-grid">
@@ -283,6 +311,6 @@
       <button class="button primary full" data-view-button="apply">相談タイムを申し込む</button>
     </div>
 
-    <script src="script.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>

@@ -1,0 +1,1 @@
+import {NextRequest,NextResponse} from 'next/server';import {cancelReservation} from '@/lib/mockStore';export async function POST(req:NextRequest,{params}:{params:Promise<{id:string}>}){const body=await req.json().catch(()=>({}));const r=await cancelReservation((await params).id,body.reason||'');return r?NextResponse.json(r):NextResponse.json({message:'Not found'},{status:404})}

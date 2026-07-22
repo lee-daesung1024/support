@@ -1,0 +1,1 @@
+import {Reserve} from '@/components/consultation/ClientApp';export const metadata={robots:{index:false,follow:false},title:'予約変更'};export default async function Page({params}:{params:Promise<{id:string}>}){return <Reserve editId={(await params).id}/>}

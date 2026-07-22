@@ -1,0 +1,4 @@
+import {CATEGORIES} from '@/constants/consultation';import type {ReservationInput} from '@/types/consultation';
+const allowed=new Set(CATEGORIES.map(c=>c.code));
+export function sanitizeText(v:string){return v.replace(/[<>]/g,'').trim().slice(0,1000)}
+export function validateReservationInput(input:ReservationInput){const errors:string[]=[];const start=new Date(input.scheduledStartAt);if(!input.storeId)errors.push('店舗を選択してください。');if(Number.isNaN(start.getTime())||start.getTime()<Date.now())errors.push('過去の日時は選択できません。');if(!input.categories?.length)errors.push('相談カテゴリを1つ以上選択してください。');if(input.categories?.some(c=>!allowed.has(c)))errors.push('許可されていない相談カテゴリです。');if((input.advanceNote||'').length>1000)errors.push('事前相談内容は1,000文字以内で入力してください。');if(!input.idempotencyKey)errors.push('重複防止キーがありません。');return errors}

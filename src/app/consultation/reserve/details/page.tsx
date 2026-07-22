@@ -1,0 +1,1 @@
+import {Suspense} from 'react';import {Details} from '@/components/consultation/ClientApp';export const metadata={robots:{index:false,follow:false},title:'相談内容を入力する'};export default function Page(){return <Suspense><Details/></Suspense>}

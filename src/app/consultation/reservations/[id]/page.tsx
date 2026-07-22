@@ -1,0 +1,1 @@
+import {ReservationDetail} from '@/components/consultation/ClientApp';export const metadata={robots:{index:false,follow:false},title:'予約詳細'};export default async function Page({params}:{params:Promise<{id:string}>}){return <ReservationDetail id={(await params).id}/>}

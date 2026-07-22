@@ -1,0 +1,1 @@
+import {NextRequest,NextResponse} from 'next/server';import {availability,requireSession} from '@/lib/mockStore';export async function GET(req:NextRequest){await requireSession();return NextResponse.json(availability(req.nextUrl.searchParams.get('date')||new Date().toISOString().slice(0,10)))}

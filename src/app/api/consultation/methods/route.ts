@@ -1,0 +1,1 @@
+import {NextResponse} from 'next/server';import {METHOD_LABELS} from '@/constants/consultation';export async function GET(){return NextResponse.json(Object.entries(METHOD_LABELS).map(([code,label])=>({code,label})))}

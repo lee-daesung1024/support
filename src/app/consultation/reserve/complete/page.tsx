@@ -1,0 +1,1 @@
+import {Suspense} from 'react';import {Complete} from '@/components/consultation/ClientApp';export const metadata={robots:{index:false,follow:false},title:'予約完了'};export default function Page(){return <Suspense><Complete/></Suspense>}

@@ -26,10 +26,10 @@
       <section id="lp-view" class="view is-active" aria-labelledby="lp-title">
         <div id="top" class="hero section-shell">
           <div class="hero-copy">
-            <p class="eyebrow">キャストサポート</p>
-            <h1 id="lp-title">ひとりで抱えず、気軽に話せる時間を。</h1>
+            <p class="eyebrow">あなたのためのキャストサポート</p>
+            <h1 id="lp-title">ひとりで頑張り続けなくて大丈夫。</h1>
             <p class="lead">
-              相談タイムは、あなたがもっと安心して働き、無理なく稼ぎやすくするためのサポートです。
+              仕事のこと、収入のこと、お客様のこと。少しでも気になることがあれば、気軽に話してください。相談タイムは、あなたがもっと安心して働くための時間です。
             </p>
             <div class="trust-badges" aria-label="安心して利用できるポイント">
               <span>5〜15分</span>
@@ -38,10 +38,30 @@
               <span>話せる範囲でOK</span>
             </div>
             <div class="hero-actions">
-              <button class="button primary" data-view-button="apply">相談タイムを申し込む</button>
+              <button class="button primary" data-scroll-target="apply-view">相談タイムを申し込む</button>
             </div>
           </div>
         </div>
+
+        <section class="section-shell card-section empathy-section">
+          <p class="eyebrow">FEELINGS</p>
+          <h2>最近、こんなことで悩んでいませんか？</h2>
+          <div class="category-grid">
+            <article class="category-card">最近予約が減ってきた</article>
+            <article class="category-card">思うように稼げない</article>
+            <article class="category-card">常連さんや指名が減った</article>
+            <article class="category-card">写メ日記が苦手</article>
+            <article class="category-card">スタッフに相談しづらい</article>
+            <article class="category-card">辞めようか迷っている</article>
+          </div>
+        </section>
+
+        <section class="section-shell card-section">
+          <p class="eyebrow">MESSAGE</p>
+          <h2>同じような悩みを抱えている女性は、あなただけではありません。</h2>
+          <p>仕事を続けていると、収入、お客様、出勤、人間関係など、さまざまな悩みが出てくることがあります。</p>
+          <p>自分だけで解決しようとしなくて大丈夫です。小さな悩みのうちに話してもらえるように、相談タイムを用意しました。</p>
+        </section>
 
         <section id="about" class="section-shell card-section">
           <p class="eyebrow">ABOUT</p>
@@ -115,13 +135,12 @@
         <section class="section-shell final-cta">
           <h2>少し話してみようかな、くらいで大丈夫です。</h2>
           <p>大きな悩みでなくても構いません。働きやすくするための時間として、気軽に利用してください。</p>
-          <button class="button primary" data-view-button="apply">相談タイムを申し込む</button>
+          <button class="button primary" data-scroll-target="apply-view">相談タイムを申し込む</button>
         </section>
       </section>
 
-      <section id="apply-view" class="view" aria-labelledby="apply-title">
+      <section id="apply-view" class="view is-active inline-apply" aria-labelledby="apply-title">
         <div class="section-shell flow-shell">
-          <button class="back-button" data-view-button="lp">← LPへ戻る</button>
           <div class="progress" aria-label="予約ステップ">
             <span class="progress-item is-active" data-step-indicator="1">1 日時</span>
             <span class="progress-item" data-step-indicator="2">2 内容</span>
@@ -132,7 +151,8 @@
           <form id="booking-form" novalidate>
             <section class="flow-step is-active" data-step="1" aria-labelledby="apply-title">
               <p class="eyebrow">APPLY</p>
-              <h1 id="apply-title">本人情報と希望日時を入力する</h1>
+              <h1 id="apply-title">相談タイム申込フォーム</h1>
+              <p class="notice">送信時点では日時確定ではありません。担当スタッフからの連絡をもって確定となります。</p>
               <div class="card-section form-card">
                 <label>源氏名 <input id="stage-name-input" name="stageName" required placeholder="例：はるか" /></label>
                 <label>メールアドレス <input id="email-input" name="email" type="email" required /></label>
@@ -238,7 +258,7 @@
               <div class="card-section form-card success-card">
                 <div class="success-icon" aria-hidden="true">✓</div>
                 <dl id="complete-list" class="confirm-list"></dl>
-                <p>現在はまだ日時確定前です。担当スタッフからの連絡をもって予約確定となります。入力したメールアドレスへ受付内容を送信しました。</p>
+                <p>現在はまだ日時確定前です。担当スタッフからの連絡をもって日時確定となります。入力したメールアドレスへ受付内容を送信しました。</p>
                 <div class="button-row">
                   <button class="button secondary" type="button" data-view-button="lp">相談タイムTOPへ戻る</button>
                 </div>
@@ -251,7 +271,7 @@
     </main>
 
     <div class="mobile-fixed-cta" data-mobile-cta>
-      <button class="button primary full" data-view-button="apply">相談タイムを申し込む</button>
+      <button class="button primary full" data-scroll-target="apply-view">相談タイムを申し込む</button>
     </div>
 
     <script src="script.js"></script>

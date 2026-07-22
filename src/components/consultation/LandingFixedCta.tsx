@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import {useEffect, useState} from 'react';
 
 export function LandingFixedCta() {
@@ -22,7 +21,7 @@ export function LandingFixedCta() {
 
   return (
     <div className={visible ? 'mobile-fixed is-visible' : 'mobile-fixed'} aria-hidden={!visible}>
-      <Link className="btn" href="/consultation/apply" tabIndex={visible ? 0 : -1}>相談タイムを申し込む</Link>
+      <a className="btn" href="#application-form" tabIndex={visible ? 0 : -1}>相談タイムを申し込む</a>
     </div>
   );
 }

@@ -7,7 +7,7 @@ export const CATEGORIES = [
   {code: 'repeaters', label: '指名やリピーターを増やしたい'},
   {code: 'profile', label: '写メ日記やプロフィールを相談したい'},
   {code: 'schedule', label: '出勤日数や勤務時間を相談したい'},
-  {code: 'ng_customer', label: '苦手なお客様、NG顧客について相談したい'},
+  {code: 'ng_customer', label: '苦手なお客様やNG顧客について相談したい'},
   {code: 'service', label: '接客やお客様対応で困っている'},
   {code: 'store_request', label: 'スタッフや店舗への要望がある'},
   {code: 'payment', label: '待遇や精算について確認したい'},

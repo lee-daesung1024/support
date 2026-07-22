@@ -10,6 +10,7 @@ type Props = {
   value?: DateTimePreference;
   error?: string;
   onChange: (value?: DateTimePreference) => void;
+  allowClear?: boolean;
 };
 
 function toDateKey(date: Date) {
@@ -91,12 +92,12 @@ export function TimeSlotPicker({date, value, onSelect, onClose}: {date?: string;
   );
 }
 
-export function DateTimePreferenceField({label, required, value, error, onChange}: Props) {
+export function DateTimePreferenceField({label, required, value, error, onChange, allowClear = !required}: Props) {
   const [picker, setPicker] = useState<'date' | 'time' | null>(null);
   const current = value ?? {date: '', time: ''};
   return (
     <div className="preference-field">
-      <div className="preference-label"><span>{label}</span>{required ? <span className="required">必須</span> : <button type="button" className="clear-button" onClick={() => onChange(undefined)}>未選択に戻す</button>}</div>
+      <div className="preference-label"><span>{label}</span>{required ? <span className="required">必須</span> : allowClear ? <button type="button" className="clear-button" onClick={() => onChange(undefined)}>未選択に戻す</button> : null}</div>
       <div className="preference-controls">
         <button type="button" className="picker-trigger" onClick={() => setPicker('date')}><span aria-hidden="true">□</span>{formatDateLabel(current.date)}</button>
         <button type="button" className="picker-trigger" onClick={() => setPicker('time')}><span aria-hidden="true">◷</span>{current.time || '時間を選択'}</button>

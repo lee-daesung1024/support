@@ -33,12 +33,12 @@
     ['特に相談がなくても予約できますか？', 'はい。近況を少し話したいという内容でも大丈夫です。'],
     ['相談時間はどれくらいですか？', '通常は5〜15分程度です。'],
     ['強制ですか？', '原則として強制ではありません。'],
-    ['どんな方法で相談できますか？', '対面、電話、LINE、オンラインなど、店舗で利用可能な方法から選べます。'],
     [
       '内容は誰まで共有されますか？',
       '原則として対応に必要なスタッフのみで取り扱います。緊急対応が必要な場合は、必要な範囲で責任者へ共有することがあります。'
     ],
-    ['申し込み後に日時は確定しますか？', 'フォーム送信後、店舗からの連絡をもって日時が確定します。']
+    ['申込後すぐ予約確定になりますか？', 'いいえ。担当スタッフからの連絡をもって日時確定となります。'],
+    ['申込後に希望日時を変更できますか？', '返信時に担当スタッフへお伝えください。']
   ];
 
   var booking = {
@@ -135,7 +135,7 @@
     var mobileCta = $('[data-mobile-cta]');
     var hero = $('.hero');
     if (!mobileCta || !hero) return;
-    mobileCta.classList.toggle('is-hidden', hero.getBoundingClientRect().bottom > 80 || !$('#lp-view').classList.contains('is-active'));
+    mobileCta.classList.toggle('is-hidden', hero.getBoundingClientRect().bottom > 80 || $('#apply-view').getBoundingClientRect().top < window.innerHeight);
   }
 
   function showView(name) {
@@ -255,12 +255,7 @@
     Array.prototype.slice.call(root.querySelectorAll('[data-view-button]')).forEach(function (button) {
       button.addEventListener('click', function () {
         var view = button.getAttribute('data-view-button');
-        if (view === 'apply') {
-          showView('apply');
-          showStep(1);
-        } else {
-          showView(view);
-        }
+        showView(view);
       });
     });
   }
@@ -304,6 +299,12 @@
     renderFaq();
     setTodayAsMinimumDate();
     bindViewButtons(document);
+    Array.prototype.slice.call(document.querySelectorAll('[data-scroll-target]')).forEach(function (button) {
+      button.addEventListener('click', function () {
+        var target = $('#' + button.getAttribute('data-scroll-target'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
     bindStepButtons();
     bindInputs();
     updateMobileCta();

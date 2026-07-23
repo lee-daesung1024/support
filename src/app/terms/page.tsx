@@ -1,0 +1,1 @@
+import Link from 'next/link';export default function Page(){return <main className="container narrow"><h1>terms</h1><p>相談タイムをブラウザで安全に利用するための案内ページです。個人情報や相談内容は必要な範囲で取り扱います。</p><Link className="btn secondary" href="/consultation">戻る</Link></main>}
